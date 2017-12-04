@@ -1,4 +1,4 @@
-def is_valid_passphrase(text):
+def is_valid_passphrase(text: str) -> bool:
     words = text.strip().split(' ')
     seen = {}
     for word in words:
