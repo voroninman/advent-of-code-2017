@@ -1,26 +1,31 @@
-with open('input') as f:
-    numbers = list(map(int, f.readline().split('\t')))
+@profile
+def main():
+    with open('input') as f:
+        numbers = list(map(int, f.readline().split('\t')))
 
-seen = []
-when = []
-counter = 0
+    seen = {}
+    counter = 0
 
-i = numbers.index(max(numbers))
-cycles, numbers[i] = numbers[i], 0
-while True:
-    cycles -= 1
-    i = (i + 1) % len(numbers)
-    numbers[i] += 1
+    i = numbers.index(max(numbers))
+    cycles, numbers[i] = numbers[i], 0
+    size = len(numbers)
+    while True:
+        i = (i + 1) % size
+        cycles -= 1
+        numbers[i] += 1
 
-    if cycles == 0:
-        counter += 1
+        if cycles is 0:
+            counter += 1
 
-        if numbers in seen:
-            break
-        seen.append(numbers[:])
-        when.append(counter)
+            key = str(numbers)
+            if key in seen:
+                break
+            seen[key] = counter
 
-        i = numbers.index(max(numbers))
-        cycles, numbers[i] = numbers[i], 0
+            i = numbers.index(max(numbers))
+            cycles, numbers[i] = numbers[i], 0
 
-print(counter, counter - when[seen.index(numbers)])
+    print(counter, counter - seen[key])
+
+
+main()
